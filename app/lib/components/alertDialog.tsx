@@ -24,7 +24,7 @@ export function CustomAlertDialogDemo({ icon, effect }: alertDialogprop) {
   const [alertOpen, setAlertOpen] = useState(false);
 
   const startDeletionProcess = () => {
-    setDeletionInProgress(true);
+    setAlertOpen(false);
 
     effect();
   };
@@ -48,31 +48,16 @@ export function CustomAlertDialogDemo({ icon, effect }: alertDialogprop) {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          {deletionInProgress && (
-            <AlertDialogCancel disabled>Cancel</AlertDialogCancel>
-          )}
-          {!deletionInProgress && (
-            <AlertDialogCancel onClick={() => setAlertOpen(false)}>
-              Cancel
-            </AlertDialogCancel>
-          )}
-          {!deletionInProgress && (
-            <AlertDialogAction
-              onClick={startDeletionProcess}
-              disabled={deletionInProgress}
-            >
-              Continue
-            </AlertDialogAction>
-          )}
-          {deletionInProgress && (
-            <AlertDialogAction
-              onClick={startDeletionProcess}
-              disabled={deletionInProgress}
-              className="w-20"
-            >
-              <Ellipsis />
-            </AlertDialogAction>
-          )}
+          <AlertDialogCancel onClick={() => setAlertOpen(false)}>
+            Cancel
+          </AlertDialogCancel>
+
+          <AlertDialogAction
+            onClick={startDeletionProcess}
+            disabled={deletionInProgress}
+          >
+            Continue
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

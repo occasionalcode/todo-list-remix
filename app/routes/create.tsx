@@ -32,27 +32,17 @@ const CreateTask = () => {
     };
 
     setTodos([...todos, newTask]);
-    //push to toddos
-    // fetch("http://localhost:8000/Todo", {
-    //   method: "POST",
-    //   headers: { "Content-type": "application/json" },
-    //   body: JSON.stringify(todo),
-    // }).then(() => {
-    //   console.log("new Blog added");
-    //   setIsPending(false);
-    //   toast({
-    //     title: "Added Task 😎",
-    //     description: "You have successfully created a task!",
-    //     duration: 2800,
-    //   });
     if (status == "2") {
       setIsPending(false);
-      // router.push("/finished");
-      // useRouter;
     } else {
       setIsPending(false);
-      // router.push("/");
     }
+
+    toast({
+      title: "Added Task 😎",
+      description: "You have successfully created a task!",
+      duration: 2800,
+    });
     // });
     // window.location.href = "/";
     //

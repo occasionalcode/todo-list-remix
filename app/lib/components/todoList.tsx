@@ -34,6 +34,38 @@ const TodoList = ({ status }: { status: string }) => {
 
   const totalNumber = filteredTodos.length;
 
+  const handleDelete = (index: any) => {
+    setTodos(todos.filter((a) => a.id !== index.id));
+    setLoading(false);
+    toast({
+      title: "LEZGOOOOOOOOOOOOO!!!🥳🎉",
+      description: "You have finished a task",
+      duration: 2800,
+    });
+  };
+
+  const handleFinish = (todoID: number) => {
+    // setTodos(todos.map((a) => a.id !== index.id));
+
+    const newTodos = todos.map((todo) => {
+      if ((todo.id = todoID)) {
+        return {
+          ...todo,
+          status: "2",
+        };
+      } else {
+        return todo;
+      }
+    });
+
+    setLoading(false);
+    toast({
+      title: "LEZGOOOOOOOOOOOOO!!!🥳🎉",
+      description: "You have finished a task",
+      duration: 2800,
+    });
+  };
+
   return (
     <div>
       {loading && (
@@ -78,8 +110,8 @@ const TodoList = ({ status }: { status: string }) => {
             </p>
           )}
 
-          {filteredTodos.map((todo, index) => (
-            <li key={index} className="list-none">
+          {filteredTodos.map((todo) => (
+            <li key={todo.id} className="list-none">
               <ul className="flex flex-col my-3 h-20 justify-center items-center bg-white rounded-md shadow-[2px_2px_3px_1px_rgba(0,0,0,0.3)]">
                 <div className="flex flex-row w-80 font-semibold justify-between place-items-center">
                   <div className="w-56">
@@ -88,7 +120,9 @@ const TodoList = ({ status }: { status: string }) => {
                   <div className="flex flex-row justify-between items-center w-16">
                     {status === "1" && (
                       <CircleCheck
-                        onClick={() => null}
+                        onClick={() => {
+                          handleFinish(todo.id);
+                        }}
                         className="text-green-600 hover:text-green-700 cursor-pointer"
                       />
                     )}
@@ -100,7 +134,7 @@ const TodoList = ({ status }: { status: string }) => {
                         icon={
                           <Trash2 className="text-red-600 hover:text-red-700 cursor-pointer" />
                         }
-                        effect={() => null}
+                        effect={() => handleDelete(todo)}
                       />
                     </button>
                   </div>
