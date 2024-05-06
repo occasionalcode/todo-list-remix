@@ -1,7 +1,7 @@
-"use client";
-
 import React, { useState } from "react";
 import Navbar from "../Navbar";
+import { useNavigate } from "@remix-run/react";
+
 // import { Route } from "@remix-run/react";
 
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -10,6 +10,7 @@ import { Task, useTodosContext } from "@/useContext/to-do-context";
 import TodoList from "@/lib/components/todoList";
 
 const CreateTask = () => {
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState("1");
@@ -34,8 +35,10 @@ const CreateTask = () => {
     setTodos([...todos, newTask]);
     if (status == "2") {
       setIsPending(false);
+      navigate("/finished");
     } else {
       setIsPending(false);
+      navigate("/");
     }
 
     toast({

@@ -28,9 +28,7 @@ const TodoList = ({ status }: { status: string }) => {
     setLoading(false); // You might want to set it true initially and then fetch data to show loading indicator
   }, []);
 
-  const filteredTodos = Object.values(todos).filter(
-    (todo) => todo.status === status
-  );
+  const filteredTodos = todos.filter((todo) => todo.status === status);
 
   const totalNumber = filteredTodos.length;
 
@@ -44,24 +42,68 @@ const TodoList = ({ status }: { status: string }) => {
     });
   };
 
-  const handleFinish = (todoID: number) => {
-    // setTodos(todos.map((a) => a.id !== index.id));
+  // const handleFinish = (todoID: number) => {
+  //   // setTodos(todos.map((a) => a.id !== index.id));
 
-    const newTodos = todos.map((todo) => {
-      if ((todo.id = todoID)) {
+  //   const newTodos = todos.map((todo) => {
+  //     if ((todo.id = todoID)) {
+  //       return {
+  //         ...todo,
+  //         status: "2",
+  //       };
+  //     } else {
+  //       return newTodos;
+  //     }
+  //   });
+
+  //   // console.log(newTodos);
+  //   // setTodos(newTodos);
+  //   setLoading(false);
+  //   toast({
+  //     title: "LEZGOOOOOOOOOOOOO!!!🥳🎉",
+  //     description: "You have finished a task",
+  //     duration: 2800,
+  //   });
+  // };
+
+  const handleFinish = (todoID: number) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === todoID) {
         return {
           ...todo,
           status: "2",
         };
-      } else {
-        return todo;
       }
+      return todo;
     });
+
+    setTodos(updatedTodos);
 
     setLoading(false);
     toast({
       title: "LEZGOOOOOOOOOOOOO!!!🥳🎉",
       description: "You have finished a task",
+      duration: 2800,
+    });
+  };
+
+  const handleUnFinish = (todoID: number) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === todoID) {
+        return {
+          ...todo,
+          status: "1",
+        };
+      }
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+
+    setLoading(false);
+    toast({
+      title: "TASK TRANSFERED 😉",
+      description: "Task transferred to To-do",
       duration: 2800,
     });
   };
@@ -127,7 +169,12 @@ const TodoList = ({ status }: { status: string }) => {
                       />
                     )}
                     {status === "2" && (
-                      <Undo2 className="text-blue-600 hover:text-blue-700 cursor-pointer" />
+                      <Undo2
+                        onClick={() => {
+                          handleUnFinish(todo.id);
+                        }}
+                        className="text-blue-600 hover:text-blue-700 cursor-pointer"
+                      />
                     )}
                     <button>
                       <CustomAlertDialogDemo
