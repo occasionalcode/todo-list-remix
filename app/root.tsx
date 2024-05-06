@@ -10,6 +10,7 @@ import stylesheet from "@/tailwind.css?url";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "./Navbar";
 import Selection from "./Selection";
+import TodosContextProvider from "./useContext/to-do-context";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -25,12 +26,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <Navbar />
-        <Selection />
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-        <Toaster />
+        <TodosContextProvider>
+          <Navbar />
+          <Selection />
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+          <Toaster />
+        </TodosContextProvider>
       </body>
     </html>
   );

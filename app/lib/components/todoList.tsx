@@ -1,21 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Ellipsis } from "lucide-react";
 import { Link } from "@remix-run/react";
 import { Trash2, CircleCheck, Undo2 } from "lucide-react";
 import { CustomAlertDialogDemo } from "./alertDialog";
 import { useToast } from "@/components/ui/use-toast";
-
-interface Task {
-  title: string;
-  status: string;
-}
+import { useTodosContext } from "@/useContext/to-do-context";
+import TodosContextProvider from "@/useContext/to-do-context";
 
 const TodoList = ({ status }: { status: string }) => {
-  const [todos, setTodos] = useState<{ [key: string]: Task }>({
-    "1": { title: "Sample Task 1", status: "1" },
-    "2": { title: "Sample Task 2", status: "2" },
-    "3": { title: "Sample Task 3", status: "1" },
-  });
+  // const [todos, setTodos] = useState([
+  //   { id: 1, title: "Sample Task 1", status: "1" },
+  //   { id: 2, title: "Sample Task 2", status: "2" },
+  //   { id: 3, title: "Sample Task 3", status: "1" },
+  // ]);
+
+  const { todos, setTodos } = useTodosContext();
+
+  //<TodoList>
+  //<p>Hello world</p>
+
+  //function createTask () { setTodos(.)}
 
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
@@ -73,6 +77,7 @@ const TodoList = ({ status }: { status: string }) => {
               you have finished {totalNumber} task(s)!!!
             </p>
           )}
+
           {filteredTodos.map((todo, index) => (
             <li key={index} className="list-none">
               <ul className="flex flex-col my-3 h-20 justify-center items-center bg-white rounded-md shadow-[2px_2px_3px_1px_rgba(0,0,0,0.3)]">

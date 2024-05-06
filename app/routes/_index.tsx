@@ -1,4 +1,5 @@
 import TodoList from "@/lib/components/todoList";
+import TodosContextProvider from "@/useContext/to-do-context";
 import { Outlet } from "@remix-run/react";
 
 export default function Home() {
